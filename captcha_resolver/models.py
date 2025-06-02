@@ -11,7 +11,7 @@ CHARS = "0123456789abcdefghijklmnopqrstuvwxyz"
 CHAR_DICT = {c: i for i, c in enumerate(CHARS)}
 NUM_CLASSES = len(CHARS)
 
-def load_data(data_dir):
+def load_data(data_dir: str):
     X, y = [], []
     for file in os.listdir(data_dir):
         if not file.endswith(".png"): continue
@@ -51,7 +51,8 @@ def build_model():
     return model
 
 if __name__ == "__main__":
-    X, y_raw = load_data("data/labeled_images")
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), "data/labeled_images")
+    X, y_raw = load_data(data_dir=f"{path}")
     X_train, X_val, y_train, y_val = train_test_split(X, y_raw, test_size=0.2, random_state=42)
 
     y_train_split = [pad_labels(y_train[:, i]) for i in range(MAX_LABEL_LEN)]
